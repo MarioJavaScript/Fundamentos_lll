@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package pruebalinkedlist;
+package PruebaLinkedList;
 
 /**
  *
- * @author Federico Cirett Galán
+ * @author Mario Francisco Ramirez Morales
  * @date   Aug 17, 2026
  */
 class Student {
