@@ -28,10 +28,14 @@ public class NombresArrayList {
     public static void main(String[] args) {
         Path filePath = Paths.get("C:\\Users\\thexl\\OneDrive\\Desktop\\fundamentos3\\Fundamentos_lll\\fundamentos_3_2026\\pruebaArrayList\\listado.txt");
         ArrayList<String> namesList = readNamesFromFile(filePath.toString());
+        int  FRISTNAME =0, FRISTLASTNAME = 1, LASTNAME = 2;
         printNames(namesList);
+        ArrayList<String> coutedLastNames = countNames(namesList, LASTNAME);
+        
+        printNames(coutedLastNames);
         
        
-        ArrayList<String> countedList = countNames(namesList);
+        ArrayList<String> countedList = countNames(namesList, FRISTNAME);
         System.out.println("\n--- Nombres Contados ---");
         for (String cName : countedList) {
             System.out.println(cName);
@@ -58,8 +62,8 @@ public class NombresArrayList {
     }
     
     
-    public static ArrayList<String> countNames(ArrayList<String> names) {
-        int pos = 0; // Posición a evaluar en el split
+    public static ArrayList<String> countNames(ArrayList<String> names , int pos) {
+        //int pos = 0; // Posición a evaluar en el split
         ArrayList<nameCount> countedNames = new ArrayList<>();
         
         for (String name : names) {
