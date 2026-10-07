@@ -13,7 +13,11 @@ class Personas {
         this.expediente = expediente;
         this.edad = edad;
     }
-
+    public void mostrarDatos() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Expediente: " + expediente);
+        System.out.println("Edad: " + edad);
+    }
 
     public String getNombre() {
         return nombre;
@@ -30,18 +34,71 @@ class Personas {
 
 public class ExpedientesPersonas {
     public static void main(String[] args) {
-        String nombreArchivo = "fd_3/fundamentos_3_2026/Expedientespersonas/listado_personas_expediente.csv"; // Cambia esto al nombre de tu archivo
+        String nombreArchivo = "C:\\Users\\thexl\\OneDrive\\Desktop\\fundamentos3\\Fundamentos_lll\\fundamentos_3_2026\\ExpedientePersonas\\listado_personas_expediente.csv"; // Cambia esto al nombre de tu archivo
         ArrayList<Personas> personas = cargaArchivoPersonas(nombreArchivo);
         if (personas.size() > 10) {
             Personas personaEncontrada = personas.get(10);
-            System.out.println("Nombre: " + personaEncontrada.getNombre());
-            System.out.println("Expediente: " + personaEncontrada.getExpediente());
-            System.out.println("Edad: " + personaEncontrada.getEdad());
+            personaEncontrada.mostrarDatos();
         } else {
             System.out.println("No hay suficientes registros en el archivo.");
         }
+        String[] nombresABuscar = {"Luis Cruz Orozco", "Isabel Domínguez Ochoa", "Ernesto Ozuna Ramirez", "Ada Pino López", "Bruno Díaz Hernández","Luis Caro Durazo"};
+        buscarVariasPersonasEnLista(personas, nombresABuscar);
+        System.out.println("--------------------------------------------------");
+        // Crear un HashMap con los nombres como claves y las personas como valores
+        java.util.HashMap<String, Personas> mapaPersonas = new java.util.HashMap<>();
+        for (Personas persona : personas) {
+            mapaPersonas.put(persona.getNombre(), persona);
+        }
+
+        Personas personaEncontradaEnHashMap = buscarPersonaEnHashMap(mapaPersonas, "Ada Pino López");
+        if (personaEncontradaEnHashMap != null) {
+            personaEncontradaEnHashMap.mostrarDatos();
+        }
+        buscarVariasPersonasEnHashMap(mapaPersonas, nombresABuscar);
     }
 
+    public static Personas buscarPersonaEnHashMap(java.util.HashMap<String, Personas> mapaPersonas, String nombre) {
+        return mapaPersonas.get(nombre);
+    }
+
+    public static void buscarVariasPersonasEnHashMap(java.util.HashMap<String, Personas> mapaPersonas, String[] nombres) {
+        long startTime = System.nanoTime();
+        for (String nombre : nombres) {
+            Personas personaEncontrada = buscarPersonaEnHashMap(mapaPersonas, nombre);
+            if (personaEncontrada != null) {
+                personaEncontrada.mostrarDatos();
+            } else {
+                System.out.println("No se encontró a la persona con nombre: " + nombre);
+            }
+        }
+        long endTime = System.nanoTime();
+        System.out.println("Tiempo de búsqueda HashMap: " + (endTime - startTime) / 1000000.0 + " ms");
+    }
+
+    public static Personas buscarPersonaEnLista(ArrayList<Personas> personas, String nombre) {
+        for (Personas persona : personas) {
+            if (persona.getNombre().equalsIgnoreCase(nombre)) {
+                return persona;
+            }
+        }
+        return null; // Retorna null si no se encuentra la persona
+    }
+    public static void buscarVariasPersonasEnLista(ArrayList<Personas> personas, String[] nombres) {
+        // Inicia un timer para medir el tiempo de búsqueda
+        long startTime = System.nanoTime();
+        for (String nombre : nombres) {
+            Personas personaEncontrada = buscarPersonaEnLista(personas, nombre);
+            if (personaEncontrada != null) {
+                personaEncontrada.mostrarDatos();
+            } else {
+                System.out.println("No se encontró a la persona con nombre: " + nombre);
+            }
+        }
+        // Finaliza el timer y muestra el tiempo de búsqueda
+        long endTime = System.nanoTime();
+        System.out.println("Tiempo de búsqueda: " + (endTime - startTime) / 1000000.0 + " ms");
+    }
     public static ArrayList<Personas> cargaArchivoPersonas(String nombreArchivo) {
         ArrayList<Personas> personas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(nombreArchivo))) {
