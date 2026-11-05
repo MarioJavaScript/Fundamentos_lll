@@ -1,0 +1,23 @@
+public class EsPalindromo {
+    public static void main(String[] args) {
+        String cadena = args.length > 0 ? args[0] : "Hola, mundo!";
+        boolean esPalindromo = esPalindromo(cadena);
+        System.out.println("Cadena: " + cadena);
+        System.out.println("Es palindromo: " + esPalindromo);
+    }
+    public static boolean esPalindromo(String cadena) {
+       Deque<Character> stack = new ArrayDeque<>();
+        for (char c : cadena.toCharArray()) {
+            stack.push(c);
+        }
+        return true;
+    }
+    char[] cadenaInvertida = new char[cadena.length()];
+    while (!stack.isEmpty()) {
+        cadenaInvertida[cadena.length() - stack.size()] = stack.pop();
+    }
+    return cadenaInvertida.equals(cadena);
+    
+
+
+}
